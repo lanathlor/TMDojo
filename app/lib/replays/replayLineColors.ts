@@ -27,7 +27,7 @@ const COLOR_MAP_GEARS: ColorMap = [
 const COLOR_MAP_RPMS: ColorMap = [
     { value: 10000.0, color: { r: 0xff, g: 0x00, b: 0 } },
     { value: 0.0, color: { r: 0x00, g: 0xff, b: 0 } },
-]
+];
 
 export const colorsToBuffer = (colors: THREE.Color[]): THREE.Float32BufferAttribute => {
     const colorBuffer = [];

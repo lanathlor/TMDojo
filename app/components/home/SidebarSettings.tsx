@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
-import Title from "antd/lib/typography/Title";
 import { Button, Drawer, Select } from "antd";
 import { Option } from "antd/lib/mentions";
 import { SettingsContext } from "../../lib/contexts/SettingsContext";
 import { LineTypes } from "../viewer/ReplayLines";
+import Checkbox, { CheckboxChangeEvent } from "antd/lib/checkbox/Checkbox";
+import Text from "antd/lib/typography/Text";
 
 export const SidebarSettings = (): JSX.Element => {
     const [visible, setVisible] = useState(false);
-    const { lineType, changeLineType } = useContext(SettingsContext);
+    const { lineType, changeLineType, showBlocks, setShowBlocks } = useContext(SettingsContext);
 
     const onClose = () => {
         setVisible(false);
@@ -18,10 +19,14 @@ export const SidebarSettings = (): JSX.Element => {
     };
 
     const onChangeLineType = (newLineTypeKey: string) => {
-	const newLineType = LineTypes[newLineTypeKey];
+        const newLineType = LineTypes[newLineTypeKey];
         if (newLineType != undefined) {
             changeLineType(newLineType);
         }
+    };
+
+    const onChangeSetBlocks = (event: CheckboxChangeEvent) => {
+        setShowBlocks(event.target.checked);
     };
 
     return (
@@ -36,13 +41,10 @@ export const SidebarSettings = (): JSX.Element => {
                 onClose={onClose}
                 visible={visible}
             >
-                <Title level={5}>Line Type</Title>
-                <Select
-                    className={"w-full"}
-                    size="large"
-                    value={lineType.name}
-                    onChange={onChangeLineType}
-                >
+                <Text type="secondary" className="ml-2">
+                    Line Type
+                </Text>
+                <Select className={"w-full"} value={lineType.name} onChange={onChangeLineType}>
                     {Object.keys(LineTypes).map((lineTypeKey) => {
                         const { name } = LineTypes[lineTypeKey];
                         return (
@@ -52,6 +54,14 @@ export const SidebarSettings = (): JSX.Element => {
                         );
                     })}
                 </Select>
+
+                <Checkbox
+                    className={"w-full py-6 select-none"}
+                    onChange={onChangeSetBlocks}
+                    checked={showBlocks}
+                >
+                    Show Blocks
+                </Checkbox>
             </Drawer>
         </div>
     );
