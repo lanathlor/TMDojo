@@ -48,9 +48,9 @@ export const SidebarSettings = (): JSX.Element => {
                     {Object.keys(LineTypes).map((lineTypeKey) => {
                         const { name } = LineTypes[lineTypeKey];
                         return (
-                            <Option key={name} value={lineTypeKey}>
+                            <Select.Option key={name} value={lineTypeKey}>
                                 {name}
-                            </Option>
+                            </Select.Option>
                         );
                     })}
                 </Select>
